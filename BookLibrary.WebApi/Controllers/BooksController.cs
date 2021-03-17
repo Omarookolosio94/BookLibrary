@@ -22,5 +22,31 @@ namespace BookLibrary.WebApi.Controllers
         {
             return Ok(_bookservice.GetBooks());
         }
+
+        [HttpGet("{id}" , Name ="GetBook")]
+        public ActionResult GetBook(string id)
+        {
+            return Ok(_bookservice.GetBook(id));
+        }
+
+        [HttpPost]
+        public IActionResult AddBook(Book book)
+        {
+            _bookservice.AddBook(book);
+            return CreatedAtRoute("GetBook", new { id = book.Id } , book);
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteBook(string id)
+        {
+            _bookservice.DeleteBook(id);
+            return NoContent();
+        }
+
+        [HttpPut]
+        public IActionResult UpdateBook(Book book)
+        {
+            return Ok(_bookservice.UpdateBook(book));
+        }
     }
 }
